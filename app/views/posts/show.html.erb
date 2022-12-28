@@ -1,10 +1,39 @@
-<p style="color: green"><%= notice %></p>
+<div>
+  <p style="color: green"><%= notice %></p>
 
-<%= render @post %>
+  <p><%= @post.content %></p>
+
+  <div class="text-muted"><%= @post.created_at %></div>
+  <div>
+    <%= link_to 'Назад', 'javascript:history.back()', class: "btn btn-primary" %>
+    <%= link_to 'Редактировать', edit_post_path(@post), class: "btn btn-warning" %>
+    <%= link_to 'Удалить', post_path(@post), class: "btn btn-danger",
+                           data: {turbo_method: :delete,
+                           turbo_confirm: 'Вы точно хотите удалить этот пост?'} %>
+  </div>
+</div>
 
 <div>
-  <%= link_to "Edit this post", edit_post_path(@post) %> |
-  <%= link_to "Back to posts", posts_path %>
+  <h2>Комментарии:</h2>
 
-  <%= button_to "Destroy this post", @post, method: :delete %>
+  <div class="col-md-6">
+    <%= form_with model: @post.comments.new  do |form| %>
+      <p>
+        <%= form.text_area :content, size: "x3", class: 'form-control',
+                            placeholder: 'Введите текст комментария' %>
+      </p>
+      <%= form.hidden_field :post_id, value: @post.id %>
+      <p>
+        <%= form.submit 'Добавить комментарий', class: 'btn btn-outline-primary' %>
+      </p>
+    <% end %>
+  </div>
+
+  <% @comments.each do |comment| %>
+    <comment>
+      <p><%= simple_format(comment.content) %></p>
+      <p><%= comment.created_at %></p>
+      <hr/>
+    </comment>
+  <% end %>
 </div>
