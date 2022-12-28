@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_12_28_031210) do
+ActiveRecord::Schema[7.0].define(version: 2022_12_28_031703) do
   create_table "comments", force: :cascade do |t|
     t.text "content"
     t.string "commentable_type"
@@ -21,6 +21,12 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_28_031210) do
   end
 
   create_table "images", force: :cascade do |t|
+    t.text "url"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "links", force: :cascade do |t|
     t.text "url"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
