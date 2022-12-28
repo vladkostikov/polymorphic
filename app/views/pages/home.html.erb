@@ -1,1 +1,37 @@
 <h1>Главная</h1>
+
+<div class="col-4">
+  <h3>Посты</h3>
+  <% @posts.each do |post| %>
+    <p><%= post.content %></p>
+
+    <% comments_amount = post.comments.count %>
+    <p><%= link_to "Комментарии (#{comments_amount})", post_path(post),
+                   style: 'text-decoration: none' %></p>
+    <hr/>
+  <% end %>
+</div>
+
+<div class="col-4">
+  <h3>Фотографии</h3>
+  <% @images.each do |image| %>
+    <img src="<%= image.url %>" class="img-fluid">
+
+    <% comments_amount = image.comments.count %>
+    <p><%= link_to "Комментарии (#{comments_amount})", image_path(image),
+                   style: 'text-decoration: none' %></p>
+    <hr>
+  <% end %>
+</div>
+
+<div class="col-4">
+  <h3>Ссылки</h3>
+  <% @links.each do |link| %>
+    <a href="<%= link.url %>"><%= link.url %></a>
+
+    <% comments_amount = link.comments.count %>
+    <p><%= link_to "Комментарии (#{comments_amount})", link_path(link),
+                   style: 'text-decoration: none' %></p>
+    <hr>
+  <% end %>
+</div>
