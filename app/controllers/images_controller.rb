@@ -8,6 +8,7 @@ class ImagesController < ApplicationController
 
   # GET /images/1 or /images/1.json
   def show
+    @comments = @image.comments.order('id DESC')
   end
 
   # GET /images/new

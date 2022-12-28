@@ -1,10 +1,39 @@
-<p style="color: green"><%= notice %></p>
+<div>
+  <p style="color: green"><%= notice %></p>
 
-<%= render @image %>
+  <img src="<%= @image.url %>" class="img-fluid">
+
+  <div class="text-muted"><%= @image.created_at %></div>
+  <div>
+    <%= link_to 'Назад', 'javascript:history.back()', class: "btn btn-primary" %>
+    <%= link_to 'Редактировать', edit_image_path(@image), class: "btn btn-warning" %>
+    <%= link_to 'Удалить', image_path(@image), class: "btn btn-danger",
+                           data: {turbo_method: :delete,
+                           turbo_confirm: 'Вы точно хотите удалить эту фотографию?'} %>
+  </div>
+</div>
 
 <div>
-  <%= link_to "Edit this image", edit_image_path(@image) %> |
-  <%= link_to "Back to images", images_path %>
+  <h2>Комментарии:</h2>
 
-  <%= button_to "Destroy this image", @image, method: :delete %>
+  <div class="col-md-6">
+    <%= form_with model: @image.comments.new  do |form| %>
+      <p>
+        <%= form.text_area :content, size: "x3", class: 'form-control',
+                            placeholder: 'Введите текст комментария' %>
+      </p>
+      <%= form.hidden_field :image_id, value: @image.id %>
+      <p>
+        <%= form.submit 'Добавить комментарий', class: 'btn btn-outline-primary' %>
+      </p>
+    <% end %>
+  </div>
+
+  <% @comments.each do |comment| %>
+    <comment>
+      <p><%= simple_format(comment.content) %></p>
+      <p><%= comment.created_at %></p>
+      <hr/>
+    </comment>
+  <% end %>
 </div>
