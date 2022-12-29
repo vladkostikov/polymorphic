@@ -8,6 +8,7 @@ class LinksController < ApplicationController
 
   # GET /links/1 or /links/1.json
   def show
+    @comments = @link.comments.order('id DESC')
   end
 
   # GET /links/new

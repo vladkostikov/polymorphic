@@ -10,6 +10,7 @@ class CommentsController < ApplicationController
   def correct_instance
     return Post.find(params[:comment][:post_id]) if params[:comment][:post_id]
     return Image.find(params[:comment][:image_id]) if params[:comment][:image_id]
+    return Link.find(params[:comment][:link_id]) if params[:comment][:link_id]
   end
 
   def comment_params
